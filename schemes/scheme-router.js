@@ -115,4 +115,12 @@ router.delete('/:id', (req, res) => {
   });
 });
 
+router.post("/:id/addStep", async (req, res) => {
+  try {
+    res.status(201).json(await Schemes.addStep(req.body, req.params.id));
+  } catch(err) {
+    res.status(500).json({ message: "Failed to add step" });
+  }
+})
+
 module.exports = router;

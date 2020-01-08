@@ -33,11 +33,18 @@ const remove = async (id) => {
     };
 };
 
+const addStep = async (step, scheme_id) => {
+    let newStep = await db("steps").join("schemes", "steps.scheme_id", "schemes.id").where({"steps.scheme_id": scheme_id }).insert(step);
+
+    return db("steps").where({"id": newStep[0]}).first();
+};
+
 module.exports = {
     find,
     findById,
     findSteps,
     addScheme,
     update,
-    remove
+    remove,
+    addStep
 }
