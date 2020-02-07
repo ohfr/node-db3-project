@@ -42,6 +42,7 @@ router.get('/:id/steps', (req, res) => {
     }
   })
   .catch(err => {
+    console.log(err)
     res.status(500).json({ message: 'Failed to get steps' });
   });
 });
@@ -113,5 +114,13 @@ router.delete('/:id', (req, res) => {
     res.status(500).json({ message: 'Failed to delete scheme' });
   });
 });
+
+router.post("/:id/addStep", async (req, res) => {
+  try {
+    res.status(201).json(await Schemes.addStep(req.body, req.params.id));
+  } catch(err) {
+    res.status(500).json({ message: "Failed to add step" });
+  }
+})
 
 module.exports = router;
